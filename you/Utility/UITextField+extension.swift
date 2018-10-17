@@ -7,3 +7,13 @@
 //
 
 import Foundation
+import UIKit
+
+extension UITextField {
+    func isEmpty() -> Bool {
+        if let text = self.text {
+            return text.isEmpty
+        }
+        return true
+    }
+}

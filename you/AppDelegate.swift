@@ -8,15 +8,44 @@
 
 import UIKit
 import CoreData
+import Firebase
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        if #available(iOS 10, *)
+        { // iOS 10 support
+            //create the notificationCenter
+            let center = UNUserNotificationCenter.current()
+            center.delegate = self
+            // set the type as sound or badge
+            center.requestAuthorization(options: [.sound,.alert,.badge]) { (granted, error) in
+                if granted {
+                    print("Notification Enable Successfully")
+                }else{
+                    print("Some Error Occure")
+                }
+            }
+            application.registerForRemoteNotifications()
+        } else if #available(iOS 9, *) {
+            // iOS 9 support
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
+            UIApplication.shared.registerForRemoteNotifications()
+        } else if #available(iOS 8, *) {
+            // iOS 8 support
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound,
+                                                                                                     .alert], categories: nil))
+            UIApplication.shared.registerForRemoteNotifications()
+        } else { // iOS 7 support
+            application.registerForRemoteNotifications(matching: [.badge, .sound, .alert])
+        }
         return true
     }
 

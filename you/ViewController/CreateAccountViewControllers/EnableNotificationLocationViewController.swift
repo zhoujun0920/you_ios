@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import UserNotifications
 
-class EnableNotificationLocationViewController: UIViewController {
+class EnableNotificationLocationViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,15 +17,34 @@ class EnableNotificationLocationViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func openNotificationSetting(_ sender: UIButton) {
+         
     }
-    */
+    
+    @IBAction func openLocationSetting(_ sender: UIButton) {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+            // Enable or disable features based on authorization.
+            if granted {
+               UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+        
+    }
+    
+    @IBAction func skip(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            self.alertCreateSucceed()
+        }
+    }
+    
+    func alertCreateSucceed() {
+        let alert = UIAlertController(title: "Create Succeed", message: "You Y.O.U account is ready. Please login.", preferredStyle: .alert)
+        let positiveAction = UIAlertAction(title: "OK", style: .default, handler: { (alertAction) in
+            super.goToLogin()
+        })
+        alert.addAction(positiveAction)
+        present(alert, animated: true, completion: nil)
+    }
 
 }
