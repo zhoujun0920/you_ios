@@ -29,6 +29,7 @@
 		703193962175AD8200BB1E74 /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703193952175AD8200BB1E74 /* UIImage+extension.swift */; };
 		703193982175C8A200BB1E74 /* UITextField+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703193972175C8A200BB1E74 /* UITextField+extension.swift */; };
 		7031939A2176D3CE00BB1E74 /* DTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703193992176D3CE00BB1E74 /* DTTextField.swift */; };
+		706C4E022176F03900F627DC /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C4E012176F03900F627DC /* ExploreViewController.swift */; };
 		7CFA9985CC5E3FCAE23EACB4 /* Pods_youTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B71432DDACD7DD85E1E68F9 /* Pods_youTests.framework */; };
 		D5321877ED28A9D685C90495 /* Pods_you.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2C54ED58025ADE7CB13748 /* Pods_you.framework */; };
 /* End PBXBuildFile section */
@@ -74,6 +75,7 @@
 		703193952175AD8200BB1E74 /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
 		703193972175C8A200BB1E74 /* UITextField+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+extension.swift"; sourceTree = "<group>"; };
 		703193992176D3CE00BB1E74 /* DTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTTextField.swift; sourceTree = "<group>"; };
+		706C4E012176F03900F627DC /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		723FCC6327E0C4DED3F08460 /* Pods-youTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-youTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-youTests/Pods-youTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF258DBA5B30A030D22E9039 /* Pods-you.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-you.debug.xcconfig"; path = "Pods/Target Support Files/Pods-you/Pods-you.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -187,6 +189,7 @@
 			children = (
 				70211E5C21758B9E00AB5164 /* BaseViewController.swift */,
 				70211E88217598E900AB5164 /* CreateAccountViewControllers */,
+				706C4E002176EFDC00F627DC /* ExploreViewControllers */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -202,6 +205,14 @@
 				70211E912175A02500AB5164 /* LoginViewController.swift */,
 			);
 			path = CreateAccountViewControllers;
+			sourceTree = "<group>";
+		};
+		706C4E002176EFDC00F627DC /* ExploreViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				706C4E012176F03900F627DC /* ExploreViewController.swift */,
+			);
+			path = ExploreViewControllers;
 			sourceTree = "<group>";
 		};
 		856E2EA9BDAB39A04B78BD4A /* Frameworks */ = {
@@ -371,6 +382,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-you/Pods-you-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftLocation/SwiftLocation.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -378,6 +390,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLocation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -400,6 +413,7 @@
 				7031938E2175ACC500BB1E74 /* CreateAccountBaseViewController.swift in Sources */,
 				70211E5D21758B9E00AB5164 /* BaseViewController.swift in Sources */,
 				70211E942175AC3A00AB5164 /* UserInfoViewController.swift in Sources */,
+				706C4E022176F03900F627DC /* ExploreViewController.swift in Sources */,
 				70211E922175A02500AB5164 /* LoginViewController.swift in Sources */,
 				70211E8E21759FFB00AB5164 /* EnableNotificationLocationViewController.swift in Sources */,
 				703193922175AD2F00BB1E74 /* String+extension.swift in Sources */,
@@ -574,6 +588,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6T663Q4J9K;
 				INFOPLIST_FILE = you/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -593,6 +608,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6T663Q4J9K;
 				INFOPLIST_FILE = you/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
