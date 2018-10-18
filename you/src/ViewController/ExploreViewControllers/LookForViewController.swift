@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SwiftLocation
 import BubbleTransition
 
 class LookForViewController: ExploreBaseViewController {
@@ -21,8 +22,28 @@ class LookForViewController: ExploreBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getCurrentLocation()
         self.currentLocationTextField.setLeftPaddingPoints(5)
         self.lookForTextField.setLeftPaddingPoints(5)
+    }
+    
+    func getCurrentLocation() {
+        Locator.currentPosition(accuracy: .neighborhood, onSuccess: {
+            location in
+            Locator.location(fromCoordinates: location.coordinate, locale: nil, using: .apple, timeout: nil, onSuccess: {
+                places in
+                if let place = places.first, let city = place.city, let state = place.administrativeArea {
+                    let address = "\(place), \(city), \(state)"
+                    self.currentLocationTextField.text = address
+                }
+            }, onFail: {
+                error in
+                print(error)
+            })
+        }, onFail: {
+            error, last in
+            print("Failed to get location: \(error)")
+        })
     }
 
     @IBAction func back(_ sender: Any) {
@@ -38,21 +59,29 @@ extension LookForViewController: UIViewControllerTransitioningDelegate {
 
 extension LookForViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 5))
-        return header
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
-        return cell
+        if indexPath.section == 0 {
+            let cell: ListenerTableViewCell = tableView.dequeueReusableCell(withIdentifier: "listenerCell") as! ListenerTableViewCell
+            return cell
+        } else {
+            let cell: ConsultantTableViewCell = tableView.dequeueReusableCell(withIdentifier: "consultantCell") as! ConsultantTableViewCell
+            return cell
+        }
     }
     
     
