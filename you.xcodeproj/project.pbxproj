@@ -30,6 +30,9 @@
 		703193982175C8A200BB1E74 /* UITextField+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703193972175C8A200BB1E74 /* UITextField+extension.swift */; };
 		7031939A2176D3CE00BB1E74 /* DTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703193992176D3CE00BB1E74 /* DTTextField.swift */; };
 		706C4E022176F03900F627DC /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C4E012176F03900F627DC /* ExploreViewController.swift */; };
+		706C4E0421778DD200F627DC /* LookForViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C4E0321778DD200F627DC /* LookForViewController.swift */; };
+		706C4E062177901600F627DC /* ExploreBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C4E052177901600F627DC /* ExploreBaseViewController.swift */; };
+		706C4E082177C2AC00F627DC /* BubbleInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C4E072177C2AC00F627DC /* BubbleInteractiveTransition.swift */; };
 		7CFA9985CC5E3FCAE23EACB4 /* Pods_youTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B71432DDACD7DD85E1E68F9 /* Pods_youTests.framework */; };
 		D5321877ED28A9D685C90495 /* Pods_you.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2C54ED58025ADE7CB13748 /* Pods_you.framework */; };
 /* End PBXBuildFile section */
@@ -76,6 +79,9 @@
 		703193972175C8A200BB1E74 /* UITextField+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+extension.swift"; sourceTree = "<group>"; };
 		703193992176D3CE00BB1E74 /* DTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTTextField.swift; sourceTree = "<group>"; };
 		706C4E012176F03900F627DC /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		706C4E0321778DD200F627DC /* LookForViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookForViewController.swift; sourceTree = "<group>"; };
+		706C4E052177901600F627DC /* ExploreBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreBaseViewController.swift; sourceTree = "<group>"; };
+		706C4E072177C2AC00F627DC /* BubbleInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleInteractiveTransition.swift; sourceTree = "<group>"; };
 		723FCC6327E0C4DED3F08460 /* Pods-youTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-youTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-youTests/Pods-youTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF258DBA5B30A030D22E9039 /* Pods-you.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-you.debug.xcconfig"; path = "Pods/Target Support Files/Pods-you/Pods-you.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +172,7 @@
 				703193952175AD8200BB1E74 /* UIImage+extension.swift */,
 				703193972175C8A200BB1E74 /* UITextField+extension.swift */,
 				703193992176D3CE00BB1E74 /* DTTextField.swift */,
+				706C4E072177C2AC00F627DC /* BubbleInteractiveTransition.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -210,7 +217,9 @@
 		706C4E002176EFDC00F627DC /* ExploreViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				706C4E052177901600F627DC /* ExploreBaseViewController.swift */,
 				706C4E012176F03900F627DC /* ExploreViewController.swift */,
+				706C4E0321778DD200F627DC /* LookForViewController.swift */,
 			);
 			path = ExploreViewControllers;
 			sourceTree = "<group>";
@@ -381,6 +390,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-you/Pods-you-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BubbleTransition/BubbleTransition.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftLocation/SwiftLocation.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -389,6 +399,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BubbleTransition.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLocation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -406,6 +417,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				706C4E062177901600F627DC /* ExploreBaseViewController.swift in Sources */,
 				703193942175AD5D00BB1E74 /* UIViewController+extension.swift in Sources */,
 				70211E8C21759FE700AB5164 /* CreateAccountViewController.swift in Sources */,
 				70211E902175A01300AB5164 /* EmailPasswordViewController.swift in Sources */,
@@ -421,8 +433,10 @@
 				703193902175AD0C00BB1E74 /* UIColor+extension.swift in Sources */,
 				703193962175AD8200BB1E74 /* UIImage+extension.swift in Sources */,
 				7031939A2176D3CE00BB1E74 /* DTTextField.swift in Sources */,
+				706C4E0421778DD200F627DC /* LookForViewController.swift in Sources */,
 				70211E6321758B9E00AB5164 /* you.xcdatamodeld in Sources */,
 				70211E5B21758B9E00AB5164 /* AppDelegate.swift in Sources */,
+				706C4E082177C2AC00F627DC /* BubbleInteractiveTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

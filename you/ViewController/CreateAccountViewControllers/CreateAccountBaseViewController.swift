@@ -17,7 +17,10 @@ class CreateAccountBaseViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.nextButton.layer.cornerRadius = 5;
-        // Do any additional setup after loading the view.
+        let backBtn = UIBarButtonItem(image: UIImage(named: "Back_Arrow")!,
+                                      style: .plain, target: self, action: #selector(popSelf))
+        self.navigationItem.leftBarButtonItem = backBtn
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +46,20 @@ class CreateAccountBaseViewController: BaseViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func goToHome() {
+        let homeStoryBoard = UIStoryboard(name: "Home", bundle: nil)
+        if let homeNavigationViewController
+            = homeStoryBoard.instantiateViewController(withIdentifier: "LoginNavigationViewController") as? UINavigationController {
+            self.present(homeNavigationViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func alertErrorMessage(message: String) {
+        let alert = UIAlertController(title: NSLocalizedString("Error", comment: "error title"), message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func keyboardDidShow(_ notification: NSNotification) {

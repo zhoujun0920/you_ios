@@ -7,6 +7,7 @@ target 'you' do
   pod 'Alamofire', '~> 4.7'
   pod 'Firebase/Core'
   pod 'SwiftLocation', '~> 3.2.3'
+  pod 'BubbleTransition', '~> 3.0.0'
   # Pods for you
 
   target 'youTests' do
