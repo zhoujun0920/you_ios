@@ -1,6 +1,9 @@
 PODS:
   - Alamofire (4.7.2)
   - BubbleTransition (3.0.1)
+  - Chatto (3.3.1)
+  - ChattoAdditions (3.3.1):
+    - Chatto
   - Firebase/Core (5.0.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.0.0)
@@ -30,6 +33,8 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - BubbleTransition (~> 3.0.0)
+  - Chatto (= 3.3.1)
+  - ChattoAdditions (= 3.3.1)
   - Firebase/Core
   - SwiftLocation (~> 3.2.3)
 
@@ -37,6 +42,8 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - BubbleTransition
+    - Chatto
+    - ChattoAdditions
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -49,6 +56,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   BubbleTransition: 5038c843e449052f1bbbe0451605c45ec5b3ca0a
+  Chatto: 24a6c9b0c91b08130466888b8b61563b90191c6f
+  ChattoAdditions: cc74cd3dd371aa3f70e5ab8568a4f383f0c0eb8c
   Firebase: 4bd804448ab2596794698773d41520a0af101e65
   FirebaseAnalytics: 19812b49fa5f283dd6b23edf8a14b5d477029ab8
   FirebaseCore: e46e4babb9de298fb2f736958edcc6da1dc60d73
@@ -58,6 +67,6 @@ SPEC CHECKSUMS:
   SwiftLocation: a3c3bc2023118171ef3572188a31def94aa0892c
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 331d5fce6aa32ffc0efcca326d84f41a42621577
+PODFILE CHECKSUM: 40974702f9164b1d48ee42640e107328b751e6f6
 
 COCOAPODS: 1.5.0

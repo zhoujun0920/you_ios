@@ -6,8 +6,11 @@ target 'you' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   pod 'Alamofire', '~> 4.7'
   pod 'Firebase/Core'
+  pod 'Firebase/Auth'
   pod 'SwiftLocation', '~> 3.2.3'
   pod 'BubbleTransition', '~> 3.0.0'
+  pod 'Chatto', '= 3.3.1'
+  pod 'ChattoAdditions', '= 3.3.1'
   # Pods for you
 
   target 'youTests' do
