@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import CoreStore
 
 class EmailPasswordViewController: CreateAccountBaseViewController {
     
@@ -18,6 +20,8 @@ class EmailPasswordViewController: CreateAccountBaseViewController {
     @IBOutlet weak var characterNumberErrorLabel: UILabel!
     @IBOutlet weak var emailAddressErrorLabel: UILabel!
     
+    var handle: AuthStateDidChangeListenerHandle!
+    var ref: DatabaseReference!
     var emailAddress: String?
     var showPassword = false
     var isBlocked = true
@@ -41,6 +45,15 @@ class EmailPasswordViewController: CreateAccountBaseViewController {
         super.viewWillAppear(animated)
         self.emailAddressTextField.text = "test@test.com"
         self.passwordTextField.text = "Aa1234567&"
+        self.handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+            // ...
+        }
+        self.ref = Database.database().reference()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(self.handle!)
     }
     
     @objc func backgroundTapped(_ sender: UITapGestureRecognizer) {
@@ -123,7 +136,7 @@ class EmailPasswordViewController: CreateAccountBaseViewController {
             self.isBlocked = true
             self.specialCharacterErrorLabel.textColor = UIColor.FlatColor.Red.PasswordErrorRed
         }
-        if (self.isBlocked) {
+        if (!self.isBlocked) {
             self.password = password
         }
         super.changeNextButton(self.isBlocked)
@@ -141,8 +154,60 @@ class EmailPasswordViewController: CreateAccountBaseViewController {
     
     @IBAction func confirm(_ sender: Any) {
         if !isBlocked {
-            checkEnableNotification()
+            self.view.addSubview(self.pleaseWaitIndicator)
+            if let email = self.emailAddress, let password = self.password {
+                if !email.isEmptyStr && !password.isEmptyStr {
+                    Auth.auth().createUser(withEmail: email, password: password) {
+                        (authResult, error) in
+                        self.pleaseWaitIndicator.removeFromSuperview()
+                        if let result = authResult {
+                            self.logIn(email: email, password: password)
+                            return
+                        }
+                        if let error = error {
+                            super.alertErrorMessage(message: error.localizedDescription)
+                            return
+                        }
+                        super.alertErrorMessage(message: "Failed to sign up.")
+                    }
+                }
+            }
         }
+    }
+    
+    func logIn(email: String, password: String) {
+        self.view.addSubview(self.pleaseWaitIndicator)
+        Auth.auth().signIn(withEmail: email, password: password, completion: {
+            (user, error) in
+            self.pleaseWaitIndicator.removeFromSuperview()
+            guard let currentUser = Static.youStack.fetchOne(From(User.self)) else {
+                return
+            }
+            if let user = user {
+                let body = [
+                    "fullName": currentUser.name!,
+                    "nickName": currentUser.nickName!,
+                    "birthDate": currentUser.birthDate?.timeIntervalSince1970 as Any,
+                "created": ServerValue.timestamp()] as [String: Any]
+                self.signUp(uid: user.user.uid, body: body)
+            }
+            if let error = error {
+                super.alertErrorMessage(message: error.localizedDescription)
+            }
+        })
+    }
+    
+    func signUp(uid: String, body: [String: Any]) {
+        self.ref.child("users").child(uid).setValue(body as AnyObject)
+        _ = try? Static.youStack.perform(
+            synchronous: { (transaction) in
+                if let user = Static.youStack.fetchOne(From(User.self)) {
+                    user.email = self.emailAddress
+                    user.uid = uid
+                    self.checkEnableNotification()
+                    return
+                }
+        })
     }
     
     func checkEmailIsBlocked(emailAddress: String) {
@@ -162,11 +227,7 @@ class EmailPasswordViewController: CreateAccountBaseViewController {
 //        let isRegisteredForRemoteNotifications = UIApplication.shared.isRegisteredForRemoteNotifications
 //        if isRegisteredForRemoteNotifications {
             // User is registered for notification
-        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
-        if let tabViewController
-            = mainStoryBoard.instantiateViewController(withIdentifier: "HomeTabBarController") as? UITabBarController {
-            self.present(tabViewController, animated: true, completion: nil)
-        }
+        
 //        } else {
 //            let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
 //            if let enableNotificationViewController
@@ -175,5 +236,4 @@ class EmailPasswordViewController: CreateAccountBaseViewController {
 //            }
 //        }
     }
-
 }

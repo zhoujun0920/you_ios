@@ -70,6 +70,10 @@
 		706C4E7A217A69CE00F627DC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C4E79217A69CE00F627DC /* ProfileViewController.swift */; };
 		706C4E7D217A6A7600F627DC /* ProfileImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C4E7C217A6A7600F627DC /* ProfileImageTableViewCell.swift */; };
 		706C4E7F217A6ADB00F627DC /* ProfileInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C4E7E217A6ADB00F627DC /* ProfileInfoTableViewCell.swift */; };
+		706C4E81217A7B3700F627DC /* Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C4E80217A7B3700F627DC /* Static.swift */; };
+		707B3E1A217A85A700355C9F /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707B3E18217A85A700355C9F /* User+CoreDataClass.swift */; };
+		707B3E1B217A85A700355C9F /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707B3E19217A85A700355C9F /* User+CoreDataProperties.swift */; };
+		707B3E1D217ACE1200355C9F /* LogOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707B3E1C217ACE1200355C9F /* LogOutTableViewCell.swift */; };
 		7CFA9985CC5E3FCAE23EACB4 /* Pods_youTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B71432DDACD7DD85E1E68F9 /* Pods_youTests.framework */; };
 		D5321877ED28A9D685C90495 /* Pods_you.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2C54ED58025ADE7CB13748 /* Pods_you.framework */; };
 /* End PBXBuildFile section */
@@ -156,6 +160,10 @@
 		706C4E79217A69CE00F627DC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		706C4E7C217A6A7600F627DC /* ProfileImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageTableViewCell.swift; sourceTree = "<group>"; };
 		706C4E7E217A6ADB00F627DC /* ProfileInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoTableViewCell.swift; sourceTree = "<group>"; };
+		706C4E80217A7B3700F627DC /* Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Static.swift; sourceTree = "<group>"; };
+		707B3E18217A85A700355C9F /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		707B3E19217A85A700355C9F /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		707B3E1C217ACE1200355C9F /* LogOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutTableViewCell.swift; sourceTree = "<group>"; };
 		723FCC6327E0C4DED3F08460 /* Pods-youTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-youTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-youTests/Pods-youTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF258DBA5B30A030D22E9039 /* Pods-you.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-you.debug.xcconfig"; path = "Pods/Target Support Files/Pods-you/Pods-you.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -250,6 +258,7 @@
 		70211E85217598CA00AB5164 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				706C4E80217A7B3700F627DC /* Static.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -257,6 +266,8 @@
 		70211E86217598D000AB5164 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				707B3E18217A85A700355C9F /* User+CoreDataClass.swift */,
+				707B3E19217A85A700355C9F /* User+CoreDataProperties.swift */,
 				706C4E222179122F00F627DC /* Message */,
 			);
 			path = Model;
@@ -453,6 +464,7 @@
 			children = (
 				706C4E7C217A6A7600F627DC /* ProfileImageTableViewCell.swift */,
 				706C4E7E217A6ADB00F627DC /* ProfileInfoTableViewCell.swift */,
+				707B3E1C217ACE1200355C9F /* LogOutTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -627,9 +639,12 @@
 				"${BUILT_PRODUCTS_DIR}/BubbleTransition/BubbleTransition.framework",
 				"${BUILT_PRODUCTS_DIR}/Chatto/Chatto.framework",
 				"${BUILT_PRODUCTS_DIR}/ChattoAdditions/ChattoAdditions.framework",
+				"${BUILT_PRODUCTS_DIR}/CoreStore/CoreStore.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftLocation/SwiftLocation.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -638,9 +653,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BubbleTransition.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Chatto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChattoAdditions.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreStore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLocation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,12 +681,15 @@
 				706C4E062177901600F627DC /* ExploreBaseViewController.swift in Sources */,
 				706C4E7A217A69CE00F627DC /* ProfileViewController.swift in Sources */,
 				706C4E6D2179181700F627DC /* DemoTextMessageModel.swift in Sources */,
+				707B3E1A217A85A700355C9F /* User+CoreDataClass.swift in Sources */,
 				706C4E682179180E00F627DC /* SendingStatusPresenter.swift in Sources */,
 				703193942175AD5D00BB1E74 /* UIViewController+extension.swift in Sources */,
 				70211E8C21759FE700AB5164 /* CreateAccountViewController.swift in Sources */,
+				706C4E81217A7B3700F627DC /* Static.swift in Sources */,
 				706C4E3E2179165900F627DC /* DemoChatDataSource.swift in Sources */,
 				70211E902175A01300AB5164 /* EmailPasswordViewController.swift in Sources */,
 				706C4E742179183500F627DC /* TimeSeparatorModel.swift in Sources */,
+				707B3E1B217A85A700355C9F /* User+CoreDataProperties.swift in Sources */,
 				706C4E7D217A6A7600F627DC /* ProfileImageTableViewCell.swift in Sources */,
 				706C4E6C2179181700F627DC /* DemoTextMessageViewModel.swift in Sources */,
 				706C4E0B21781BE800F627DC /* ListenerTableViewCell.swift in Sources */,
@@ -693,6 +714,7 @@
 				706C4E732179183500F627DC /* TimeSeparatorPresenter.swift in Sources */,
 				703193962175AD8200BB1E74 /* UIImage+extension.swift in Sources */,
 				706C4E4F217916CC00F627DC /* MessagesSelectorProtocol.swift in Sources */,
+				707B3E1D217ACE1200355C9F /* LogOutTableViewCell.swift in Sources */,
 				706C4E4B217916CC00F627DC /* BaseMessagesSelector.swift in Sources */,
 				7031939A2176D3CE00BB1E74 /* DTTextField.swift in Sources */,
 				706C4E0421778DD200F627DC /* LookForViewController.swift in Sources */,

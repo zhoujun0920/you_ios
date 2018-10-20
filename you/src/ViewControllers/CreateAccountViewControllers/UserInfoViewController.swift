@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreStore
 
 class UserInfoViewController: CreateAccountBaseViewController {
     
@@ -15,7 +16,6 @@ class UserInfoViewController: CreateAccountBaseViewController {
     @IBOutlet weak var birthDateTextField: UITextField!
     @IBOutlet weak var birthDatePicker: UIDatePicker!
 
-    
     var birthDate: NSDate?
     var isBlocked = true
     
@@ -102,14 +102,18 @@ class UserInfoViewController: CreateAccountBaseViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToEmailPasswordVC" {
             if segue.destination is EmailPasswordViewController {
-                //TODO: Add user info
-                
+                _ = try? Static.youStack.perform(
+                    synchronous: { (transaction) in
+                        let user = transaction.create(Into<User>())
+                        user.name = self.fullNameTextField.text
+                        user.nickName = self.nickNameTextField.text
+                        user.birthDate = self.birthDatePicker.date as NSDate
+                })
             }
         }
     }
     
     override func popSelf() {
-
         super.popSelf()
     }
 }

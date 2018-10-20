@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SavedViewController: UIViewController {
+class SavedViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,13 +16,6 @@ class SavedViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = false
-    }
 }
 
 extension SavedViewController: UITableViewDelegate, UITableViewDataSource {

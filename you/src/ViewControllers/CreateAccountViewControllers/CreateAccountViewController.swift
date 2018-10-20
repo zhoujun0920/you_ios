@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreStore
 
-class CreateAccountViewController: UIViewController {
+class CreateAccountViewController: BaseViewController {
     
     @IBOutlet weak var createAccountButton: UIButton!
     
@@ -20,6 +21,14 @@ class CreateAccountViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+        guard let user = Static.youStack.fetchAll(From(User.self)) else {
+            return
+        }
+        if !user.isEmpty {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.currentUser = user.first
+            super.goToMain()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -27,8 +36,11 @@ class CreateAccountViewController: UIViewController {
     }
 
     @IBAction func createAccount(_ sender: UIButton) {
-        print("create a new account, go to name vc")
-        // make create account request?
+        print("create a new account, go to user info.")
+        _ = try? Static.youStack.perform(
+            synchronous: { (transaction) in
+                transaction.deleteAll(From<User>())
+        })
     }
     
     @IBAction func login(_ sender: UIButton) {

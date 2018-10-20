@@ -7,10 +7,12 @@ target 'you' do
   pod 'Alamofire', '~> 4.7'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Database'
   pod 'SwiftLocation', '~> 3.2.3'
   pod 'BubbleTransition', '~> 3.0.0'
   pod 'Chatto', '= 3.3.1'
   pod 'ChattoAdditions', '= 3.3.1'
+  pod 'CoreStore', '~> 5.0'
   # Pods for you
 
   target 'youTests' do

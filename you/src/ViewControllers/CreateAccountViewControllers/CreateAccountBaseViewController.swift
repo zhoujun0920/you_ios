@@ -56,12 +56,6 @@ class CreateAccountBaseViewController: BaseViewController {
         }
     }
     
-    func alertErrorMessage(message: String) {
-        let alert = UIAlertController(title: NSLocalizedString("Error", comment: "error title"), message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     @objc func keyboardDidShow(_ notification: NSNotification) {
         print("Keyboard will show!")
         let keyboardSize:CGSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey]

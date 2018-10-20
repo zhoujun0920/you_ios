@@ -41,7 +41,7 @@ class EnableNotificationLocationViewController: BaseViewController {
     func alertCreateSucceed() {
         let alert = UIAlertController(title: "Create Succeed", message: "You Y.O.U account is ready. Please login.", preferredStyle: .alert)
         let positiveAction = UIAlertAction(title: "OK", style: .default, handler: { (alertAction) in
-            super.goToLogin()
+            super.goToMain()
         })
         alert.addAction(positiveAction)
         present(alert, animated: true, completion: nil)

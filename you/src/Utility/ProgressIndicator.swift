@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ProressIndicator: UIVisualEffectView {
+class ProgressIndicator: UIVisualEffectView {
     
     var text: String? {
         didSet {
