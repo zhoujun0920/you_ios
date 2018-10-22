@@ -8,11 +8,13 @@ target 'you' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   pod 'SwiftLocation', '~> 3.2.3'
   pod 'BubbleTransition', '~> 3.0.0'
   pod 'Chatto', '= 3.3.1'
   pod 'ChattoAdditions', '= 3.3.1'
   pod 'CoreStore', '~> 5.0'
+  pod 'CropViewController'
   # Pods for you
 
   target 'youTests' do

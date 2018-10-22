@@ -74,6 +74,8 @@
 		707B3E1A217A85A700355C9F /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707B3E18217A85A700355C9F /* User+CoreDataClass.swift */; };
 		707B3E1B217A85A700355C9F /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707B3E19217A85A700355C9F /* User+CoreDataProperties.swift */; };
 		707B3E1D217ACE1200355C9F /* LogOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707B3E1C217ACE1200355C9F /* LogOutTableViewCell.swift */; };
+		70C08197217BB7C700799D12 /* DateTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C08196217BB7C700799D12 /* DateTimeManager.swift */; };
+		70C08199217BC67300799D12 /* UIImageView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C08198217BC67300799D12 /* UIImageView+extension.swift */; };
 		7CFA9985CC5E3FCAE23EACB4 /* Pods_youTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B71432DDACD7DD85E1E68F9 /* Pods_youTests.framework */; };
 		D5321877ED28A9D685C90495 /* Pods_you.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2C54ED58025ADE7CB13748 /* Pods_you.framework */; };
 /* End PBXBuildFile section */
@@ -164,6 +166,8 @@
 		707B3E18217A85A700355C9F /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		707B3E19217A85A700355C9F /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		707B3E1C217ACE1200355C9F /* LogOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutTableViewCell.swift; sourceTree = "<group>"; };
+		70C08196217BB7C700799D12 /* DateTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeManager.swift; sourceTree = "<group>"; };
+		70C08198217BC67300799D12 /* UIImageView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+extension.swift"; sourceTree = "<group>"; };
 		723FCC6327E0C4DED3F08460 /* Pods-youTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-youTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-youTests/Pods-youTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF258DBA5B30A030D22E9039 /* Pods-you.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-you.debug.xcconfig"; path = "Pods/Target Support Files/Pods-you/Pods-you.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -251,6 +255,7 @@
 				703193972175C8A200BB1E74 /* UITextField+extension.swift */,
 				703193992176D3CE00BB1E74 /* DTTextField.swift */,
 				706C4E072177C2AC00F627DC /* BubbleInteractiveTransition.swift */,
+				70C08198217BC67300799D12 /* UIImageView+extension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -329,6 +334,7 @@
 				70211E84217598C300AB5164 /* Utility */,
 				70211E83217598B800AB5164 /* Views */,
 				706C4E0F21783BFC00F627DC /* APIManager.swift */,
+				70C08196217BB7C700799D12 /* DateTimeManager.swift */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -640,6 +646,7 @@
 				"${BUILT_PRODUCTS_DIR}/Chatto/Chatto.framework",
 				"${BUILT_PRODUCTS_DIR}/ChattoAdditions/ChattoAdditions.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreStore/CoreStore.framework",
+				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftLocation/SwiftLocation.framework",
@@ -654,6 +661,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Chatto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChattoAdditions.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreStore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLocation.framework",
@@ -695,6 +703,7 @@
 				706C4E0B21781BE800F627DC /* ListenerTableViewCell.swift in Sources */,
 				706C4E412179165900F627DC /* DemoChatMessageFactory.swift in Sources */,
 				706C4E13217840F500F627DC /* SavedViewController.swift in Sources */,
+				70C08199217BC67300799D12 /* UIImageView+extension.swift in Sources */,
 				70211E8A21759C2A00AB5164 /* ProgressIndicator.swift in Sources */,
 				7031938E2175ACC500BB1E74 /* CreateAccountBaseViewController.swift in Sources */,
 				70211E5D21758B9E00AB5164 /* BaseViewController.swift in Sources */,
@@ -708,6 +717,7 @@
 				706C4E3B2179165900F627DC /* DemoChatMessageSender.swift in Sources */,
 				703193922175AD2F00BB1E74 /* String+extension.swift in Sources */,
 				703193982175C8A200BB1E74 /* UITextField+extension.swift in Sources */,
+				70C08197217BB7C700799D12 /* DateTimeManager.swift in Sources */,
 				706C4E3D2179165900F627DC /* MessagesSelectionChatViewController.swift in Sources */,
 				703193902175AD0C00BB1E74 /* UIColor+extension.swift in Sources */,
 				706C4E622179180400F627DC /* DemoPhotoMessageViewModel.swift in Sources */,
@@ -899,10 +909,7 @@
 				DEVELOPMENT_TEAM = 6T663Q4J9K;
 				INFOPLIST_FILE = you/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jzhou.you.you;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -919,10 +926,7 @@
 				DEVELOPMENT_TEAM = 6T663Q4J9K;
 				INFOPLIST_FILE = you/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jzhou.you.you;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -939,11 +943,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6T663Q4J9K;
 				INFOPLIST_FILE = youTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jzhou.youTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -961,11 +961,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6T663Q4J9K;
 				INFOPLIST_FILE = youTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jzhou.youTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

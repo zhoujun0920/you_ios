@@ -74,11 +74,12 @@ class LoginViewController: BaseViewController {
                 print("login successful!")
                 self.pleaseWaitIndicator.removeFromSuperview()
                 let uid = user.user.uid
+                let photoURL = user.user.photoURL
                 self.ref.child("users").child(uid).observeSingleEvent(of: .value, with: {
                     snapshot in
                     if let value = snapshot.value {
                         let user = JSON(value)
-                        self.saveUser(json: user, uid: uid)
+                        self.saveUser(json: user, uid: uid, photoURL: photoURL)
                     }
                 })
                 return
@@ -92,12 +93,15 @@ class LoginViewController: BaseViewController {
         }
     }
     
-    func saveUser(json: JSON, uid: String) {
+    func saveUser(json: JSON, uid: String, photoURL: URL?) {
         _ = try? Static.youStack.perform(
             synchronous: { (transaction) in
                 transaction.deleteAll(From<User>())
                 let user = transaction.create(Into<User>())
                 user.fromJSON(json, keyValue: uid)
+                if let photoURL = photoURL {
+                    user.photoUrl = photoURL.absoluteString
+                }
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.currentUser = user
                 super.goToMain()

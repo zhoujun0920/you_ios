@@ -43,7 +43,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else if section == 1 {
-            return 4
+            return 3
         }
         return 1
     }
@@ -55,6 +55,24 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else if indexPath.section == 1{
             let cell: ProfileInfoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "profileInfoCell") as! ProfileInfoTableViewCell
+            if let user = Static.youStack.fetchOne(From(User.self)) {
+                if indexPath.row == 0 {
+                    if let temp = user.name {
+                        cell.updateView(info: temp)
+                    }
+                } else if indexPath.row == 1 {
+                    if let temp = user.nickName {
+                        cell.updateView(info: temp)
+                    }
+                } else if indexPath.row == 2 {
+                    if let temp = user.birthDate {
+                        if let myDate = DateTimeManager.convertDateToString(date: temp as Date) {
+                            cell.updateView(info: myDate)
+                        }
+                    }
+                }
+                
+            }
             return cell
         } else {
             let cell: LogOutTableViewCell = tableView.dequeueReusableCell(withIdentifier: "logOutCell") as! LogOutTableViewCell

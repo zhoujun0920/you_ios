@@ -14,7 +14,7 @@ import SwiftyJSON
 @objc(User)
 public class User: NSManagedObject {
     func fromJSON(_ json: JSON, keyValue: String) {
-        self.name = json["name"].stringValue
+        self.name = json["fullName"].stringValue
         self.nickName = json["nickName"].stringValue
         self.email = json["emailAddress"].stringValue
         let birthDate = json["birthDate"].doubleValue

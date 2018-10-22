@@ -189,7 +189,8 @@ class EmailPasswordViewController: CreateAccountBaseViewController {
                     "nickName": currentUser.nickName!,
                     "birthDate": currentUser.birthDate?.timeIntervalSince1970 as Any,
                 "created": ServerValue.timestamp()] as [String: Any]
-                self.signUp(uid: user.user.uid, body: body)
+                self.updateUserDisplayName(displayName: currentUser.name!)
+                self.updateUserInfo(uid: user.user.uid, body: body)
             }
             if let error = error {
                 super.alertErrorMessage(message: error.localizedDescription)
@@ -197,7 +198,16 @@ class EmailPasswordViewController: CreateAccountBaseViewController {
         })
     }
     
-    func signUp(uid: String, body: [String: Any]) {
+    func updateUserDisplayName(displayName: String) {
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = displayName
+        changeRequest?.commitChanges {
+            error in
+            print(error)
+        }
+    }
+    
+    func updateUserInfo(uid: String, body: [String: Any]) {
         self.ref.child("users").child(uid).setValue(body as AnyObject)
         _ = try? Static.youStack.perform(
             synchronous: { (transaction) in
@@ -227,7 +237,7 @@ class EmailPasswordViewController: CreateAccountBaseViewController {
 //        let isRegisteredForRemoteNotifications = UIApplication.shared.isRegisteredForRemoteNotifications
 //        if isRegisteredForRemoteNotifications {
             // User is registered for notification
-        
+        super.goToMain()
 //        } else {
 //            let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
 //            if let enableNotificationViewController

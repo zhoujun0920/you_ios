@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreStore
+import Firebase
+import FirebaseStorage
+import CropViewController
 
 class ProfileImageTableViewCell: UITableViewCell {
 
@@ -17,22 +20,30 @@ class ProfileImageTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.profileImageView.layer.borderWidth = 1
-        self.profileImageView.layer.masksToBounds = false
-        self.profileImageView.layer.borderColor = UIColor.clear.cgColor
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height / 2
-        self.profileImageView.clipsToBounds = true
+        self.profileImageView.setRounded()
         self.profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapProfileImage(_:))))
-        _ = try? Static.youStack.perform(
-            synchronous: { (transaction) in
-                guard let user = Static.youStack.fetchOne(From(User.self)) else {
-                    return
+        if let user = Static.youStack.fetchOne(From(User.self)) {
+            if let data = user.profileImage as Data? {
+                self.profileImageView.image = UIImage(data: data)
+            } else {
+                if let currentUser = Auth.auth().currentUser {
+                    let storage = Storage.storage()
+                    let storageRef = storage.reference()
+                    let fileRef = "profileImages/" + currentUser.uid + ".jpg"
+                    let profileImageRef = storageRef.child(fileRef)
+                    profileImageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                        if let error = error {
+                            // Uh-oh, an error occurred!
+                        } else {
+                            // Data for "images/island.jpg" is returned
+                            let image = UIImage(data: data!)
+                            self.profileImageView.image = image
+                        }
+                    }
                 }
-                if let data = user.profileImage as Data? {
-                    self.profileImageView.image = UIImage(data: data)
-                }
-        })
-    }
+            }
+        }
+}
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -48,7 +59,7 @@ class ProfileImageTableViewCell: UITableViewCell {
                 let myPickerController = UIImagePickerController()
                 myPickerController.delegate = self;
                 myPickerController.sourceType = .camera
-                myPickerController.allowsEditing = true
+                myPickerController.allowsEditing = false
                 self.currentVC.present(myPickerController, animated: true, completion: nil)
             }
         })
@@ -68,37 +79,61 @@ class ProfileImageTableViewCell: UITableViewCell {
     }
 }
 
+extension ProfileImageTableViewCell: CropViewControllerDelegate {
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        self.profileImageView.image = image
+        updateProfileImage(image: image)
+        _ = try? Static.youStack.perform(
+            synchronous: { (transaction) in
+                guard let user = Static.youStack.fetchOne(From(User.self)) else {
+                    return
+                }
+                if let data = image.pngData() {
+                    user.profileImage = NSData(data: data)
+                }
+        })
+        self.currentVC.dismiss(animated: true, completion: nil)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        self.profileImageView.image = image
+        updateProfileImage(image: image)
+        _ = try? Static.youStack.perform(
+            synchronous: { (transaction) in
+                guard let user = Static.youStack.fetchOne(From(User.self)) else {
+                    return
+                }
+                if let data = image.pngData() {
+                    user.profileImage = NSData(data: data)
+                }
+        })
+        self.currentVC.dismiss(animated: true, completion: nil)
+    }
+}
+
 extension ProfileImageTableViewCell: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.currentVC.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if #available(iOS 11, *)
-//        { // iOS 11 support
-            if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-                self.profileImageView.image = image
-                _ = try? Static.youStack.perform(
-                    synchronous: { (transaction) in
-                        guard let user = Static.youStack.fetchOne(From(User.self)) else {
-                            return
-                        }
-                        guard let data = image.pngData() as NSData? else {
-                            return
-                        }
-                        user.profileImage = data;
-                })
-            } else {
-                print("Something went wrong")
-            }
-//        } else {
-//            if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//                self.profileImageView.image = image
-//            } else {
-//                print("Something went wrong")
-//            }
-//        }
-        self.currentVC.dismiss(animated: true, completion: nil)
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.currentVC.dismiss(animated: true, completion: {
+                self.presentCropViewController(image: image)
+            })
+        } else {
+            self.currentVC.dismiss(animated: true, completion: nil)
+            print("Something went wrong")
+        }
+        
+    }
+    
+    func presentCropViewController(image: UIImage) {
+        let cropViewController = CropViewController(croppingStyle: .circular, image: image)
+        cropViewController.delegate = self
+        cropViewController.doneButtonTitle
+        self.currentVC.present(cropViewController, animated: true, completion: nil)
     }
     
     func compressProfileImage(imageData: NSData) -> Data {
@@ -107,6 +142,36 @@ extension ProfileImageTableViewCell: UIImagePickerControllerDelegate, UINavigati
             return compress
         }
         return imageData as Data
+    }
+
+    func updateProfileImage(image: UIImage) {
+        if let currentUser = Auth.auth().currentUser {
+            let storage = Storage.storage()
+            let storageRef = storage.reference()
+            let fileRef = "profileImages/" + currentUser.uid + ".jpg"
+            let profileImagesRef = storageRef.child(fileRef)
+            if let imageData = image.pngData() {
+                let uploadTask = profileImagesRef.putData(imageData, metadata: nil) { (metadata, error) in
+                    guard let metadata = metadata else {
+                        // Uh-oh, an error occurred!
+                        return
+                    }
+                    // Metadata contains file metadata such as size, content-type.
+                    let size = metadata.size
+                    // You can also access to download URL after upload.
+                    profileImagesRef.downloadURL { (url, error) in
+                        guard let downloadURL = url else {
+                            return
+                        }
+                        let changeRequest = currentUser.createProfileChangeRequest()
+                        changeRequest.photoURL = downloadURL
+                        changeRequest.commitChanges { (error) in
+                            // ...
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
