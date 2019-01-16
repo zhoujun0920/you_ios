@@ -88,8 +88,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 _ = try? Static.youStack.perform(
                     synchronous: { (transaction) in
                         transaction.deleteAll(From<User>())
-                        self.dismiss(animated: true, completion: nil)
+                        transaction.deleteAll(From<SuperUser>())
+                        transaction.deleteAll(From<Friend>())
+                        transaction.deleteAll(From<Message>())
                 })
+                self.dismiss(animated: true, completion: nil)
             })
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(yes)

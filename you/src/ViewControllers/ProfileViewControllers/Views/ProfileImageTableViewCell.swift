@@ -132,7 +132,6 @@ extension ProfileImageTableViewCell: UIImagePickerControllerDelegate, UINavigati
     func presentCropViewController(image: UIImage) {
         let cropViewController = CropViewController(croppingStyle: .circular, image: image)
         cropViewController.delegate = self
-        cropViewController.doneButtonTitle
         self.currentVC.present(cropViewController, animated: true, completion: nil)
     }
     
@@ -148,7 +147,7 @@ extension ProfileImageTableViewCell: UIImagePickerControllerDelegate, UINavigati
         if let currentUser = Auth.auth().currentUser {
             let storage = Storage.storage()
             let storageRef = storage.reference()
-            let fileRef = "profileImages/" + currentUser.uid + ".jpg"
+            let fileRef = "profileImages/" + currentUser.uid + ".png"
             let profileImagesRef = storageRef.child(fileRef)
             if let imageData = image.pngData() {
                 let uploadTask = profileImagesRef.putData(imageData, metadata: nil) { (metadata, error) in

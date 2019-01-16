@@ -9,6 +9,7 @@ target 'you' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'Firebase/Messaging'
   pod 'SwiftLocation', '~> 3.2.3'
   pod 'BubbleTransition', '~> 3.0.0'
   pod 'Chatto', '= 3.3.1'

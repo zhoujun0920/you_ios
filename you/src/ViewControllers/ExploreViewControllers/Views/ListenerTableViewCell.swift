@@ -23,5 +23,9 @@ class ListenerTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func updateView(superUser: SuperUser) {
+        self.listenerNameLabel.text = superUser.nickName
+    }
 
 }

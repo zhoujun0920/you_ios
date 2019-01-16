@@ -11,6 +11,8 @@ import UIKit
 class SavedTableViewCell: UITableViewCell {
 
     @IBOutlet weak var savedCollectionView: UICollectionView!
+    var superUsers = [SuperUser]()
+    var currentVC: SavedViewController!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,19 +25,23 @@ class SavedTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func updateView(superUsers: [SuperUser], currentVC: SavedViewController) {
+        self.currentVC = currentVC
+        self.superUsers = superUsers
+        self.savedCollectionView.reloadData()
+    }
 }
 
 extension SavedTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return self.superUsers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: SavedCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "savedCollectionViewCell", for: indexPath) as! SavedCollectionViewCell
-        cell.updateCollectionView()
+        let superUser = self.superUsers[indexPath.row]
+        cell.updateCollectionView(superUser: superUser, currentVC: self.currentVC)
         return cell
     }
-    
-    
 }

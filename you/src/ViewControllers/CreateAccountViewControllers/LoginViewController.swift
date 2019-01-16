@@ -69,6 +69,7 @@ class LoginViewController: BaseViewController {
             self.pleaseWaitIndicator.removeFromSuperview()
             return
         }
+        //EmailAuthProvider.credential(withEmail: <#T##String#>, password: <#T##String#>)
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if let user = user {
                 print("login successful!")

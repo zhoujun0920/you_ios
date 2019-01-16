@@ -8,15 +8,23 @@
 
 import UIKit
 import MapKit
+import Firebase
+import CoreStore
+import SwiftyJSON
 import SwiftLocation
 import BubbleTransition
 
 class LookForViewController: ExploreBaseViewController {
 
+    @IBOutlet weak var lookForTableView: UITableView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var currentLocationTextField: UITextField!
     @IBOutlet weak var lookForTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    
+    var listeners = [SuperUser]()
+    var consultants = [SuperUser]()
+    var selectedSuperUser: SuperUser!
     
     let interactiveTransition = BubbleInteractiveTransition()
     
@@ -25,6 +33,39 @@ class LookForViewController: ExploreBaseViewController {
         getCurrentLocation()
         self.currentLocationTextField.setLeftPaddingPoints(5)
         self.lookForTextField.setLeftPaddingPoints(5)
+        fetchSuperUser()
+    }
+    
+    func fetchSuperUser() {
+        Database.database().reference().child("super-users").observeSingleEvent(of: .value, with: {
+            (snapshot) in
+            if let value = snapshot.value {
+                let jsons = JSON(value)
+                print(jsons)
+                self.saveSuperUsers(jsons: jsons)
+            }
+        }, withCancel: {
+            error in
+            print(error.localizedDescription)
+        })
+    }
+    
+    func saveSuperUsers(jsons: JSON) {
+        _ = try? Static.youStack.perform(
+            synchronous: { (transaction) in
+                transaction.deleteAll(From(SuperUser.self))
+                for json in jsons.dictionaryValue {
+                    let superUser = transaction.create(Into<SuperUser>())
+                    superUser.fromJSON(json.value)
+                }
+        })
+        if let listeners = Static.youStack.fetchAll(From<SuperUser>().where(\.role == "LISTENER")) {
+            self.listeners = listeners
+        }
+        if let consultants = Static.youStack.fetchAll(From<SuperUser>().where(\.role == "CONSULTANT")) {
+            self.consultants = consultants
+        }
+        self.lookForTableView.reloadData()
     }
     
     func getCurrentLocation() {
@@ -49,6 +90,14 @@ class LookForViewController: ExploreBaseViewController {
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is LookForDetailViewController {
+            if let destinationVC = segue.destination as? LookForDetailViewController {
+                destinationVC.superUser = self.selectedSuperUser
+            }
+        }
+    }
 }
 
 extension LookForViewController: UIViewControllerTransitioningDelegate {
@@ -71,18 +120,35 @@ extension LookForViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        if section == 0 {
+            return self.listeners.count
+        }
+        return self.consultants.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell: ListenerTableViewCell = tableView.dequeueReusableCell(withIdentifier: "listenerCell") as! ListenerTableViewCell
+            let superUser = self.listeners[indexPath.row]
+            cell.updateView(superUser: superUser)
             return cell
         } else {
             let cell: ConsultantTableViewCell = tableView.dequeueReusableCell(withIdentifier: "consultantCell") as! ConsultantTableViewCell
+            let superUser = self.consultants[indexPath.row]
+            cell.updateView(superUser: superUser)
             return cell
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            self.selectedSuperUser = self.listeners[indexPath.row]
+        } else {
+            self.selectedSuperUser = self.consultants[indexPath.row]
+        }
+    }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }

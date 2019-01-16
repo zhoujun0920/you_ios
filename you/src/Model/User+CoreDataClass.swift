@@ -14,12 +14,12 @@ import SwiftyJSON
 @objc(User)
 public class User: NSManagedObject {
     func fromJSON(_ json: JSON, keyValue: String) {
-        self.name = json["fullName"].stringValue
-        self.nickName = json["nickName"].stringValue
-        self.email = json["emailAddress"].stringValue
-        let birthDate = json["birthDate"].doubleValue
-        self.birthDate = Date(timeIntervalSince1970: birthDate) as NSDate
+        self.name = json["fullName"].string
+        self.nickName = json["nickName"].string
+        self.email = json["emailAddress"].string
+        let birthDate = json["birthDate"].int32Value
+        self.birthDate = Date(timeIntervalSince1970: TimeInterval(birthDate)) as NSDate
         self.uid = keyValue
-        self.photoUrl = json["photoUrl"].stringValue
+        self.photoUrl = json["photoUrl"].string
     }
 }

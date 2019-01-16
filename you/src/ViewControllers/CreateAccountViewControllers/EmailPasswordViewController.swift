@@ -237,7 +237,13 @@ class EmailPasswordViewController: CreateAccountBaseViewController {
 //        let isRegisteredForRemoteNotifications = UIApplication.shared.isRegisteredForRemoteNotifications
 //        if isRegisteredForRemoteNotifications {
             // User is registered for notification
-        super.goToMain()
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+            super.goToMain()
+        }
+        _ = self.navigationController?.popToRootViewController(animated: true)
+        CATransaction.commit()
+
 //        } else {
 //            let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
 //            if let enableNotificationViewController

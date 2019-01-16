@@ -23,5 +23,8 @@ class ConsultantTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    func updateView(superUser: SuperUser) {
+        self.consultantNameLabel.text = superUser.nickName
+    }
 }
